@@ -112,8 +112,16 @@ class TreeStore extends EventEmitter {
     var node = this.data.get(id);
     if (!node) return false;
     var source = this.data.getPath(selected), destination = this.data.getPath(id);
-    return id !== selected && node.get('isDir') && !destination.equals(source.splice(-2)) &&
-      !source.equals(destination.setSize(source.size));
+    return (
+      // not allowed to drop a node onto itself
+      id !== selected &&
+      // only folders are valid drop targets
+      node.get('isDir') &&
+      // not allowed to move into the current item location (direct parent)
+      !destination.equals(source.splice(-2)) &&
+      // the folder cannot contain itself
+      !source.equals(destination.setSize(source.size))
+    );
   }
   
   /**
