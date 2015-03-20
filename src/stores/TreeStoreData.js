@@ -166,7 +166,6 @@ var Immutable = require('immutable/dist/immutable');
     if (destination) {
       children = destination.get('children');
       this.set(id, destination.set('children', children ? children.push(node) : Immutable.List.of(node)));
-      this.cache = {};
     }
   }
   
@@ -201,6 +200,7 @@ var Immutable = require('immutable/dist/immutable');
     var source = this.get(sourceId);
     if (source) {
       this.remove(sourceId);
+      this.cache = {};
       this.insert(destinationId, source);
     }
   }
