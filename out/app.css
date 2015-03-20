@@ -5939,63 +5939,64 @@ a:focus {
 .al-tree-panel > .panel, .al-tree-panel > .form-group {
   display: inline-block;
   position: relative;
-  top: 10px;
   width: 500px;
-  margin: 0 0 0 10px;
-  vertical-align: top; }
-.al-tree-panel > .panel > .panel-heading {
-  cursor: default;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none; }
-.al-tree-panel > .panel > .panel-body {
-  padding: 0;
-  height: 300px;
-  overflow-y: auto;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAMAAAB/qqA+AAAABlBMVEUAAAAAAAClZ7nPAAAAAnRSTlMNAMM9s3UAAAAXSURBVHjajcEBAQAAAIKg/H/aCQZ70AUBjAATb6YPDgAAAABJRU5ErkJggg==) left top repeat local;
-  background-size: auto 40px; }
-  .al-tree-panel > .panel > .panel-body > .al-tree {
-    margin-bottom: 0;
-    position: relative; }
-.al-tree-panel > .panel > .panel-footer {
-  text-align: right; }
-  .al-tree-panel > .panel > .panel-footer > .btn {
-    margin-right: 5px; }
-.al-tree-panel > .panel .al-tree {
-  padding-left: 30px; }
-  .al-tree-panel > .panel .al-tree > li {
-    list-style-type: none;
+  vertical-align: top;
+  margin-bottom: 10px; }
+.al-tree-panel > .panel {
+  margin-right: 10px; }
+  .al-tree-panel > .panel > .panel-heading {
+    cursor: default;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
-            user-select: none;
-    font-size: 12px;
-    line-height: 20px;
-    cursor: default; }
-    .al-tree-panel > .panel .al-tree > li .selector:hover, .al-tree-panel > .panel .al-tree > li > .glyphicon:hover ~ .selector, .al-tree-panel > .panel .al-tree > li > span:hover ~ .selector {
-      background: #E7F4F9; }
-    .al-tree-panel > .panel .al-tree > li > span {
-      position: relative;
-      z-index: 1; }
-      .al-tree-panel > .panel .al-tree > li > span:not(.glyphicon) {
-        pointer-events: none; }
-    .al-tree-panel > .panel .al-tree > li > .selector {
-      position: absolute;
-      left: 0;
-      height: 20px;
-      width: 100%;
-      margin-top: -20px;
-      z-index: 0; }
-      .al-tree-panel > .panel .al-tree > li > .selector.selected {
-        background: -webkit-linear-gradient(top, #BEEBFF 0, #A8E4FF 100%) !important;
-        background: linear-gradient(to bottom, #BEEBFF 0, #A8E4FF 100%) !important; }
-      .al-tree-panel > .panel .al-tree > li > .selector.target {
-        border: 1px dotted #000; }
-    .al-tree-panel > .panel .al-tree > li > .glyphicon {
-      margin-left: -17px;
-      cursor: pointer;
+            user-select: none; }
+  .al-tree-panel > .panel > .panel-body {
+    padding: 0;
+    height: 300px;
+    overflow-y: auto;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAMAAAB/qqA+AAAABlBMVEUAAAAAAAClZ7nPAAAAAnRSTlMNAMM9s3UAAAAXSURBVHjajcEBAQAAAIKg/H/aCQZ70AUBjAATb6YPDgAAAABJRU5ErkJggg==) left top repeat local;
+    background-size: auto 40px; }
+    .al-tree-panel > .panel > .panel-body > .al-tree {
+      margin-bottom: 0;
+      position: relative; }
+  .al-tree-panel > .panel > .panel-footer {
+    text-align: right; }
+    .al-tree-panel > .panel > .panel-footer > .btn {
       margin-right: 5px; }
+  .al-tree-panel > .panel .al-tree {
+    padding-left: 30px; }
+    .al-tree-panel > .panel .al-tree > li {
+      list-style-type: none;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      font-size: 12px;
+      line-height: 20px;
+      cursor: default; }
+      .al-tree-panel > .panel .al-tree > li .selector:hover, .al-tree-panel > .panel .al-tree > li > .glyphicon:hover ~ .selector, .al-tree-panel > .panel .al-tree > li > span:hover ~ .selector {
+        background: #E7F4F9; }
+      .al-tree-panel > .panel .al-tree > li > span {
+        position: relative;
+        z-index: 1; }
+        .al-tree-panel > .panel .al-tree > li > span:not(.glyphicon) {
+          pointer-events: none; }
+      .al-tree-panel > .panel .al-tree > li > .selector {
+        position: absolute;
+        left: 0;
+        height: 20px;
+        width: 100%;
+        margin-top: -20px;
+        z-index: 0; }
+        .al-tree-panel > .panel .al-tree > li > .selector.selected {
+          background: -webkit-linear-gradient(top, #BEEBFF 0, #A8E4FF 100%) !important;
+          background: linear-gradient(to bottom, #BEEBFF 0, #A8E4FF 100%) !important; }
+        .al-tree-panel > .panel .al-tree > li > .selector.target {
+          border: 1px dotted #000; }
+      .al-tree-panel > .panel .al-tree > li > .glyphicon {
+        margin-left: -17px;
+        cursor: pointer;
+        margin-right: 5px; }
 .al-tree-panel > .form-group {
   height: 398px; }
   .al-tree-panel > .form-group > .form-control {
@@ -6003,5 +6004,8 @@ a:focus {
 
 html, body {
   height: 100%; }
+
+body {
+  padding: 10px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -19,7 +19,8 @@ The project is fully intergrated with the Jest 0.1.39 unit test framework.
 a common parent class - you're absolutely right. However, and unfortunately, this is currently not possible due to 
 [a bug in Flow](https://github.com/facebook/flow/issues/300).*
 
-<br>
+# [View online demo](http://thealjey.github.io/evolution-test/)
+
 ##### Tools needed to compile:
 1. NodeJS
 2. Facebook Flow
