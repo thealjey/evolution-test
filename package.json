@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "autoprefixer": "*",
+    "babel": "*",
+    "babel-core": "*",
+    "babel-jest": "*",
+    "babel-loader": "*",
+    "babel-runtime": "*",
+    "bootstrap-sass": "*",
+    "es5-shim": "*",
+    "express": "*",
+    "flux": "*",
+    "immutable": "*",
+    "jest-cli": "*",
+    "lodash": "*",
+    "react": "*",
+    "react-bootstrap": "*",
+    "react-tools": "*",
+    "webpack": "*"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ]
+  },
+  "scripts": {
+    "build-js": "if flow ; then ( if jest ; then webpack --progress --colors -d ; fi ) ; fi",
+    "build-sass": "sass --precision 8 ./scss/app.scss ./out/app.css ; autoprefixer ./out/app.css"
+  }
+}

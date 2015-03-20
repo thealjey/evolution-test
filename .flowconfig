@@ -1,0 +1,10 @@
+[ignore]
+.*/out/.*
+.*/scss/.*
+.*/node_modules/webpack/.*
+
+[include]
+
+[libs]
+
+[options]

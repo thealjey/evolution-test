@@ -1,0 +1,7 @@
+.btn, .close {
+  &, &:active, &.active {
+    &:focus, &.focus {
+      outline: none;
+    }
+  }
+}
