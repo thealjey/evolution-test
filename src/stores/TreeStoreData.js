@@ -1,6 +1,84 @@
 /* @flow */
 
-var Immutable = require('immutable/dist/immutable');
+var Immutable = require('immutable/dist/immutable'),
+  data = [
+    {id: 0, name: '/', isDir: true, children: [
+      {id: 1, name: 'bin', isDir: true},
+      {id: 2, name: 'boot', isDir: true, children: [
+        {id: 58, name: 'defaults', isDir: true}
+      ]},
+      {id: 3, name: 'dev', isDir: true},
+      {id: 4, name: 'etc', isDir: true, children: [
+        {id: 18, name: 'defaults', isDir: true},
+        {id: 19, name: 'mail', isDir: true},
+        {id: 20, name: 'namedb', isDir: true},
+        {id: 21, name: 'opt', isDir: true},
+        {id: 22, name: 'periodic', isDir: true},
+        {id: 23, name: 'ppp', isDir: true},
+        {id: 24, name: 'sgml', isDir: true},
+        {id: 25, name: 'X11', isDir: true},
+        {id: 26, name: 'xml', isDir: true}
+      ]},
+      {id: 5, name: 'home', isDir: true, children: [
+        {id: 27, name: 'al', isDir: true, children: [
+          {id: 50, name: 'Applications', isDir: true},
+          {id: 51, name: 'Desktop', isDir: true},
+          {id: 52, name: 'Documents', isDir: true, children: [
+            {id: 59, name: 'readme', isDir: false, content: `Congrats! You've found it!
+
+I am a very dedicated web developer with over 4 years of experience.
+I've always been in love with JavaScript, and even more so after the arrival of the super amazing tools from Facebook that this little app enjoys so much the fruits of.
+
+Sincerely, Eugene Kuzmenko
+
+p.s.
+Try dragging the tree items around (DnD might not work on IE <9).`}
+          ]},
+          {id: 53, name: 'Downloads', isDir: true},
+          {id: 54, name: 'Movies', isDir: true},
+          {id: 55, name: 'Music', isDir: true},
+          {id: 56, name: 'Pictures', isDir: true},
+          {id: 57, name: 'Public', isDir: true}
+        ]}
+      ]},
+      {id: 6, name: 'lib', isDir: true},
+      {id: 7, name: 'media', isDir: true},
+      {id: 8, name: 'mnt', isDir: true},
+      {id: 9, name: 'opt', isDir: true},
+      {id: 10, name: 'proc', isDir: true},
+      {id: 11, name: 'rescue', isDir: true},
+      {id: 12, name: 'root', isDir: true},
+      {id: 13, name: 'sbin', isDir: true},
+      {id: 14, name: 'srv', isDir: true},
+      {id: 15, name: 'tmp', isDir: true},
+      {id: 16, name: 'usr', isDir: true, children: [
+        {id: 28, name: 'bin', isDir: true},
+        {id: 29, name: 'include', isDir: true},
+        {id: 30, name: 'lib', isDir: true},
+        {id: 31, name: 'libdata', isDir: true},
+        {id: 32, name: 'libexec', isDir: true},
+        {id: 33, name: 'local', isDir: true},
+        {id: 34, name: 'obj', isDir: true},
+        {id: 35, name: 'ports', isDir: true},
+        {id: 36, name: 'sbin', isDir: true},
+        {id: 37, name: 'share', isDir: true},
+        {id: 38, name: 'src', isDir: true},
+        {id: 39, name: 'X11R6', isDir: true}
+      ]},
+      {id: 17, name: 'var', isDir: true, children: [
+        {id: 40, name: 'cache', isDir: true},
+        {id: 41, name: 'lib', isDir: true},
+        {id: 42, name: 'lock', isDir: true},
+        {id: 43, name: 'log', isDir: true},
+        {id: 44, name: 'mail', isDir: true},
+        {id: 45, name: 'opt', isDir: true},
+        {id: 46, name: 'run', isDir: true},
+        {id: 47, name: 'spool', isDir: true},
+        {id: 48, name: 'tmp', isDir: true},
+        {id: 49, name: 'yp', isDir: true}
+      ]}
+    ]}
+  ];
 
 /*public*/ class TreeStoreData {
 
@@ -15,76 +93,7 @@ var Immutable = require('immutable/dist/immutable');
   cache: Object;
   
   constructor() {
-    this.data = Immutable.fromJS(this.load() || [
-      {id: 0, name: '/', isDir: true, children: [
-        {id: 1, name: 'bin', isDir: true},
-        {id: 2, name: 'boot', isDir: true, children: [
-          {id: 58, name: 'defaults', isDir: true}
-        ]},
-        {id: 3, name: 'dev', isDir: true},
-        {id: 4, name: 'etc', isDir: true, children: [
-          {id: 18, name: 'defaults', isDir: true},
-          {id: 19, name: 'mail', isDir: true},
-          {id: 20, name: 'namedb', isDir: true},
-          {id: 21, name: 'opt', isDir: true},
-          {id: 22, name: 'periodic', isDir: true},
-          {id: 23, name: 'ppp', isDir: true},
-          {id: 24, name: 'sgml', isDir: true},
-          {id: 25, name: 'X11', isDir: true},
-          {id: 26, name: 'xml', isDir: true}
-        ]},
-        {id: 5, name: 'home', isDir: true, children: [
-          {id: 27, name: 'al', isDir: true, children: [
-            {id: 50, name: 'Applications', isDir: true},
-            {id: 51, name: 'Desktop', isDir: true},
-            {id: 52, name: 'Documents', isDir: true, children: [
-              {id: 59, name: 'readme', isDir: false, content: "Congrats! You've found it!\n\nI am a very dedicated web developer with over 4 years of experience.\nI've always been in love with JavaScript, and even more so after the arrival of the super amazing tools from Facebook that this little app enjoys so much the fruits of.\n\nSincerely, Eugene Kuzmenko\n\np.s.\nTry dragging the tree items around (DnD might not work on IE <9)."}
-            ]},
-            {id: 53, name: 'Downloads', isDir: true},
-            {id: 54, name: 'Movies', isDir: true},
-            {id: 55, name: 'Music', isDir: true},
-            {id: 56, name: 'Pictures', isDir: true},
-            {id: 57, name: 'Public', isDir: true}
-          ]}
-        ]},
-        {id: 6, name: 'lib', isDir: true},
-        {id: 7, name: 'media', isDir: true},
-        {id: 8, name: 'mnt', isDir: true},
-        {id: 9, name: 'opt', isDir: true},
-        {id: 10, name: 'proc', isDir: true},
-        {id: 11, name: 'rescue', isDir: true},
-        {id: 12, name: 'root', isDir: true},
-        {id: 13, name: 'sbin', isDir: true},
-        {id: 14, name: 'srv', isDir: true},
-        {id: 15, name: 'tmp', isDir: true},
-        {id: 16, name: 'usr', isDir: true, children: [
-          {id: 28, name: 'bin', isDir: true},
-          {id: 29, name: 'include', isDir: true},
-          {id: 30, name: 'lib', isDir: true},
-          {id: 31, name: 'libdata', isDir: true},
-          {id: 32, name: 'libexec', isDir: true},
-          {id: 33, name: 'local', isDir: true},
-          {id: 34, name: 'obj', isDir: true},
-          {id: 35, name: 'ports', isDir: true},
-          {id: 36, name: 'sbin', isDir: true},
-          {id: 37, name: 'share', isDir: true},
-          {id: 38, name: 'src', isDir: true},
-          {id: 39, name: 'X11R6', isDir: true}
-        ]},
-        {id: 17, name: 'var', isDir: true, children: [
-          {id: 40, name: 'cache', isDir: true},
-          {id: 41, name: 'lib', isDir: true},
-          {id: 42, name: 'lock', isDir: true},
-          {id: 43, name: 'log', isDir: true},
-          {id: 44, name: 'mail', isDir: true},
-          {id: 45, name: 'opt', isDir: true},
-          {id: 46, name: 'run', isDir: true},
-          {id: 47, name: 'spool', isDir: true},
-          {id: 48, name: 'tmp', isDir: true},
-          {id: 49, name: 'yp', isDir: true}
-        ]}
-      ]}
-    ]);
+    this.data = Immutable.fromJS(this.load() || data);
     this.cache = {};
   }
   
@@ -93,7 +102,7 @@ var Immutable = require('immutable/dist/immutable');
    */
   load(): ?Array<Object> {
     var str: ?string = localStorage.getItem('fs');
-    return str && JSON.parse(str);
+    return str ? JSON.parse(str) : null;
   }
   
   /**
@@ -107,8 +116,8 @@ var Immutable = require('immutable/dist/immutable');
    * Tests if a sub-tree at a given node contains a node with a given id
    */
   contains(id: number, node: Immutable.Map): boolean {
-    return id === node.get('id') ||
-      !!node.get('children') && !!node.get('children').find(value => this.contains(id, value));
+    var children = node.get('children');
+    return id === node.get('id') || !!children && !!children.find(child => this.contains(id, child));
   }
   
   /**
@@ -118,14 +127,21 @@ var Immutable = require('immutable/dist/immutable');
     data.forEach((node, i) => {
       if (this.contains(id, node)) {
         memo.push(i);
-        if (id !== node.get('id') && node.get('children')) {
+        var children = node.get('children');
+        if (id !== node.get('id') && children && !children.isEmpty()) {
           memo.push('children');
-          this.keyPath(id, node.get('children'), memo);
+          this.keyPath(id, children, memo);
         }
         return false;
       }
     });
     return memo;
+  }
+  
+  pruneCache(path: Immutable.List, node: Immutable.Map, i: number) {
+    var children = node.get('children');
+    path = this.cache[node.get('id')] = path.push('children', i);
+    if (children && !children.isEmpty()) children.forEach((child, i) => { this.pruneCache(path, child, i) });
   }
   
   /**
@@ -148,7 +164,7 @@ var Immutable = require('immutable/dist/immutable');
    */
   get(id: number): ?Immutable.Map {
     var path = this.getPath(id);
-    return path.size && this.data.getIn(path);
+    return !path.isEmpty() && this.data.getIn(path);
   }
   
   /**
@@ -156,6 +172,7 @@ var Immutable = require('immutable/dist/immutable');
    */
   set(id: number, node: Immutable.Map) {
     this.data = this.data.setIn(this.getPath(id), node);
+    this.save();
   }
   
   /**
@@ -165,7 +182,8 @@ var Immutable = require('immutable/dist/immutable');
     var destination = this.get(id), children;
     if (destination) {
       children = destination.get('children');
-      this.set(id, destination.set('children', children ? children.push(node) : Immutable.List.of(node)));
+      this.set(id, destination.set('children', children = children ? children.push(node) : Immutable.List.of(node)));
+      this.pruneCache(this.getPath(id), node, children.indexOf(node));
     }
   }
   
@@ -188,9 +206,8 @@ var Immutable = require('immutable/dist/immutable');
    * Removes a node by id
    */
   remove(id: number) {
-    var path = this.getPath(id), last = path.last();
-    path = path.pop();
-    this.data = this.data.setIn(path, this.data.getIn(path).splice(last, 1));
+    var path = this.getPath(id), parent = this.data.getIn(path.splice(-2));
+    this.set(parent.get('id'), parent.set('children', parent.get('children').splice(path.last(), 1)));
   }
   
   /**
@@ -200,7 +217,6 @@ var Immutable = require('immutable/dist/immutable');
     var source = this.get(sourceId);
     if (source) {
       this.remove(sourceId);
-      this.cache = {};
       this.insert(destinationId, source);
     }
   }
