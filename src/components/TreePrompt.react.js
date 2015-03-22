@@ -1,24 +1,25 @@
 /* @flow */
 
 var React = require('react/lib/React'),
+  ReactElement = require('react/lib/ReactElement'),
   Modal = require('react-bootstrap/lib/Modal'),
   Button = require('react-bootstrap/lib/Button'),
   Input = require('react-bootstrap/lib/Input');
 
-/*public*/ class TreePrompt extends React.Component {
+class TreePrompt extends React.Component {
 
   /**
-   * Holds the component state
+   * Holds the component state.
    */
   state: Object;
 
   /**
-   * Defines the valid property types for this component
+   * Defines the valid property types for this component.
    */
   static propTypes: Object;
 
   /**
-   * Defines the default property values for this component
+   * Defines the default property values for this component.
    */
   static defaultProps: Object;
 
@@ -28,14 +29,14 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Closes the dialog
+   * Closes the dialog.
    */
   cancel() {
     this.setState({isModalOpen: false, value: ''});
   }
   
   /**
-   * Confirms the action and closes the dialog
+   * Confirms the action and closes the dialog.
    */
   confirm() {
     if (this.isValid()) {
@@ -45,27 +46,27 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Makes the dialog visible and pre-fills the text input on each render operation
+   * Makes the dialog visible and pre-fills the text input on each render operation.
    */
   componentWillReceiveProps(props: Object) {
     this.setState({isModalOpen: true, value: props.value});
   }
   
   /**
-   * Checks the validity of a dialog
+   * Checks the validity of a dialog.
    */
   isValid(): boolean {
     return !!this.state.value.length;
   }
   
   /**
-   * Stores the entered value
+   * Stores the entered value.
    */
   handleChange() {
     this.setState({value: this.refs.input.getValue()});
   }
 
-  render(): any {
+  render(): ReactElement {
     return (
       this.state.isModalOpen ?
         <Modal title={this.props.header} onRequestHide={this.cancel.bind(this)}>
@@ -88,15 +89,7 @@ var React = require('react/lib/React'),
 
 }
 
-TreePrompt.propTypes = {
-  header: React.PropTypes.string,
-  onConfirm: React.PropTypes.func,
-  value: React.PropTypes.string
-};
-TreePrompt.defaultProps = {
-  header: '',
-  onConfirm: Function.prototype,
-  value: ''
-};
+TreePrompt.propTypes = {header: React.PropTypes.string, onConfirm: React.PropTypes.func, value: React.PropTypes.string};
+TreePrompt.defaultProps = {header: '', onConfirm: Function.prototype, value: ''};
 
 module.exports = TreePrompt;

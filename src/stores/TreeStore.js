@@ -7,20 +7,29 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
   CHANGE_EVENT = 'change', selected = -1, target = -1;
 
 /**
- * Sets a selected item in the tree
+ * Sets a selected item in the tree.
+ *
+ * @param id - The node id.
  */
 function select(id: number) {
   selected = id;
 }
 
 /**
- * Sets a drop target in the tree
+ * Sets a drop target in the tree.
+ *
+ * @param id - The node id.
  */
 function setTarget(id: number) {
   target = id;
 }
 
 class TreeStore extends EventEmitter {
+
+  /**
+   * The store data source.
+   */
+  data: TreeStoreData;
   
   constructor(...args: Array<any>) {
     super(...args);
@@ -28,62 +37,57 @@ class TreeStore extends EventEmitter {
   }
   
   /**
-   * Saves data to the HTML5 Local Storage
-   */
-  save() {
-    this.data.save();
-  }
-  
-  /**
-   * Creates a new node
+   * Creates a new node.
+   *
+   * @param name - The name of a new node.
+   * @param isDir - Creates a folder if isDir is true, a file otherwise.
    */
   create(name: string, isDir: boolean) {
     this.data.create(selected, name, isDir);
-    this.save();
   }
   
   /**
-   * Renames a node
+   * Renames the selected node.
+   *
+   * @param name - The new name.
    */
   rename(name: string) {
     this.data.rename(selected, name);
-    this.save();
   }
   
   /**
-   * Removes a node
+   * Removes the selected node.
    */
   remove() {
     this.data.remove(selected);
     select(-1);
-    this.save();
   }
   
   /**
-   * Moves the selected node into the drop target
+   * Moves the selected node into the drop target.
    */
   move() {
     this.data.move(selected, target);
-    this.save();
   }
   
   /**
-   * Updates the text content of a node
+   * Updates the text content of the selected node.
+   *
+   * @param content - The content.
    */
   write(content: string) {
     this.data.write(selected, content);
-    this.save();
   }
 
   /**
-   * Returns the Store data
+   * Returns the store data.
    */
   getAll(): Object {
     return {data: this.data.data, selected, target};
   }
   
   /**
-   * Checks whether the selected node is allowed to have children
+   * Checks whether the selected node is allowed to have children.
    */
   isAllowedCreate(): boolean {
     var node = this.data.get(selected);
@@ -91,14 +95,14 @@ class TreeStore extends EventEmitter {
   }
   
   /**
-   * Checks whether the selected node can be renamed or deleted
+   * Checks whether the selected node can be renamed or deleted.
    */
   isAllowedEdit(): boolean {
     return 0 < selected;
   }
   
   /**
-   * Checks whether the selected node is allowed to have a text content
+   * Checks whether the selected node is allowed to have a text content.
    */
   isAllowedWrite(): boolean {
     var node = this.data.get(selected);
@@ -106,7 +110,9 @@ class TreeStore extends EventEmitter {
   }
   
   /**
-   * Checks whether a node with a given id is a legal drop target for the selected node
+   * Checks whether a node with a given id is a legal drop target for the selected node.
+   *
+   * @param id - The node id.
    */
   isAllowedDrop(id: number): boolean {
     var node = this.data.get(id);
@@ -125,7 +131,7 @@ class TreeStore extends EventEmitter {
   }
   
   /**
-   * Returns the name of the selected node
+   * Returns the name of the selected node.
    */
   getSelectedName(): string {
     var node = this.data.get(selected);
@@ -133,7 +139,7 @@ class TreeStore extends EventEmitter {
   }
   
   /**
-   * Returns the text content of the selected node
+   * Returns the text content of the selected node.
    */
   getSelectedContent(): string {
     var node = this.data.get(selected);
@@ -141,21 +147,25 @@ class TreeStore extends EventEmitter {
   }
   
   /**
-   * Fires a change event notifying all the subscribed components
+   * Fires a change event notifying all the subscribed components.
    */
   emitChange() {
     this.emit(CHANGE_EVENT);
   }
   
   /**
-   * Adds a change event listener
+   * Adds a change event listener.
+   *
+   * @param callback - The listener to register.
    */
   addChangeListener(callback: Function) {
     this.on(CHANGE_EVENT, callback);
   }
   
   /**
-   * Removes a change event listener
+   * Removes a change event listener.
+   *
+   * @param callback - The listener to unregister.
    */
   removeChangeListener(callback: Function) {
     this.removeListener(CHANGE_EVENT, callback);

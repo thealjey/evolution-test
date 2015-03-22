@@ -1,6 +1,7 @@
 /* @flow */
 
 var React = require('react/lib/React'),
+  ReactElement = require('react/lib/ReactElement'),
   Panel = require('react-bootstrap/lib/Panel'),
   Button = require('react-bootstrap/lib/Button'),
   Input = require('react-bootstrap/lib/Input'),
@@ -12,20 +13,20 @@ var React = require('react/lib/React'),
   TreePrompt = require('./TreePrompt.react'),
   TreeConfirm = require('./TreeConfirm.react');
 
-/*public*/ class TreeApp extends React.Component {
+class TreeApp extends React.Component {
 
   /**
-   * Holds the component state
+   * Holds the component state.
    */
   state: Object;
 
   /**
-   * Defines the valid property types for this component
+   * Defines the valid property types for this component.
    */
   static propTypes: Object;
 
   /**
-   * Defines the default property values for this component
+   * Defines the default property values for this component.
    */
   static defaultProps: Object;
 
@@ -38,7 +39,7 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Performance hook
+   * Performance hook.
    */
   shouldComponentUpdate(props: Object, state: Object): boolean {
     return state.data !== this.state.data || state.selected !== this.state.selected ||
@@ -46,7 +47,7 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Creates placeholders for the dialogs and registers an event listener in the Store
+   * Creates placeholders for the dialogs and registers an event listener in the store.
    */
   componentDidMount() {
     this.promptEl = document.createElement('div');
@@ -59,7 +60,7 @@ var React = require('react/lib/React'),
   }
 
   /**
-   * Performs cleanup on component tear-down
+   * Performs cleanup on component tear-down.
    */
   componentWillUnmount() {
     document.body.removeChild(this.promptEl);
@@ -68,28 +69,36 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Creates a Tree Node
+   * Creates a tree node.
+   *
+   * @param isDir - Creates a folder if isDir is true, a file otherwise.
+   * @param name - The name of a new node.
    */
   _doCreate(isDir: boolean, name: string) {
-    TreeActions.create(isDir, name);
+    TreeActions.create(name, isDir);
   }
   
   /**
-   * Renames a Tree Node
+   * Renames a tree node.
+   *
+   * @param name - The new name.
    */
   _doRename(name: string) {
     TreeActions.rename(name);
   }
   
   /**
-   * Removes a Tree Node
+   * Removes a tree node.
    */
   _doRemove() {
     TreeActions.remove();
   }
   
   /**
-   * Prompts for a name of a Tree Node to create
+   * Prompts for a name of a tree node to create.
+   *
+   * @param type - Item type to show in the dialog.
+   * @param isDir - Creates a folder if isDir is true, a file otherwise.
    */
   create(type: string, isDir: boolean) {
     if (TreeStore.isAllowedCreate()) {
@@ -101,7 +110,7 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Prompts for a new name for a Tree Node
+   * Prompts for a new name for a tree node.
    */
   rename() {
     if (TreeStore.isAllowedEdit()) {
@@ -114,7 +123,7 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Asks confirmation before removing a Tree Node
+   * Asks confirmation before removing a tree node.
    */
   remove() {
     if (TreeStore.isAllowedEdit()) {
@@ -126,13 +135,13 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Writes into the selected file
+   * Writes into the selected file.
    */
   write() {
     TreeActions.write(this.refs.input.getValue());
   }
 
-  render(): any {
+  render(): ReactElement {
     var create = TreeStore.isAllowedCreate(), edit = TreeStore.isAllowedEdit();
     return (
       <div className="al-tree-panel">

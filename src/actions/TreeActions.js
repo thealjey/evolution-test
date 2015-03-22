@@ -6,72 +6,61 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
 module.exports = {
   
   /**
-   * Selects a Tree Node by id
+   * Selects a tree node by id.
+   *
+   * @param id - The node id.
    */
   select(id: number) {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_SELECT,
-      id
-    });
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_SELECT, id});
   },
   
   /**
-   * Creates a directory or a file with a particular name
+   * Creates a directory or a file with a particular name.
+   *
+   * @param name - The name of a new node.
+   * @param isDir - Creates a folder if isDir is true, a file otherwise.
    */
-  create(isDir: boolean, name: string) {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_CREATE,
-      isDir,
-      name
-    });
+  create(name: string, isDir: boolean) {
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_CREATE, name, isDir});
   },
   
   /**
-   * Renames a Tree Node
+   * Renames a tree node.
+   *
+   * @param name - The new name.
    */
   rename(name: string) {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_RENAME,
-      name
-    });
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_RENAME, name});
   },
   
   /**
-   * Removes a Tree Node
+   * Removes a tree node.
    */
   remove() {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_REMOVE
-    });
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_REMOVE});
   },
   
   /**
-   * Marks a Node with a given id as a drop target
+   * Marks a node with a given id as a drop target.
+   *
+   * @param id - The node id.
    */
   target(id: number) {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_TARGET,
-      id
-    });
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_TARGET, id});
   },
   
   /**
-   * Moves the selected Node into the drop target
+   * Moves the selected node into the drop target.
    */
   move() {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_MOVE
-    });
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_MOVE});
   },
   
   /**
-   * Writes a text content into the selected file
+   * Writes a text content into the selected file.
    */
   write(content: string) {
-    AppDispatcher.dispatch({
-      actionType: TreeConstants.TREE_WRITE,
-      content
-    });
+    AppDispatcher.dispatch({actionType: TreeConstants.TREE_WRITE, content});
   }
   
 };

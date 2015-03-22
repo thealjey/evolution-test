@@ -80,15 +80,15 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
     ]}
   ];
 
-/*public*/ class TreeStoreData {
+class TreeStoreData {
 
   /**
-   * An immutable tree of data
+   * An immutable tree of data.
    */
   data: Immutable.List;
 
   /**
-   * A keyPath cache
+   * A reference cache that helps to quickly locate nodes in the tree.
    */
   cache: Object;
   
@@ -98,7 +98,7 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Loads data from the HTML5 Local Storage
+   * Loads data from the HTML5 Local Storage.
    */
   load(): ?Array<Object> {
     var str: ?string = localStorage.getItem('fs');
@@ -106,14 +106,17 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Saves data to the HTML5 Local Storage
+   * Saves data to the HTML5 Local Storage.
    */
   save() {
     localStorage.setItem('fs', JSON.stringify(this.data));
   }
   
   /**
-   * Tests if a sub-tree at a given node contains a node with a given id
+   * Tests if a sub-tree at a given node contains a node with a given id.
+   *
+   * @param id - The node id.
+   * @param node - The root node of a sub-tree to search in.
    */
   contains(id: number, node: Immutable.Map): boolean {
     var children = node.get('children');
@@ -121,7 +124,11 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Returns a keyPath array of a node with a specific id
+   * Returns a keyPath array of a node with a specific id.
+   *
+   * @param id - The node id.
+   * @param data - A collection of nodes to search in.
+   * @param [memo]
    */
   keyPath(id: number, data: Immutable.List, memo: Array<number|string> = []): Array<number|string> {
     data.forEach((node, i) => {
@@ -138,6 +145,13 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
     return memo;
   }
   
+  /**
+   * Updates the reference cache for a sub-tree at a given node.
+   *
+   * @param path - A reference path to the node parent.
+   * @param node - The node itself.
+   * @param i - Index position of the node in the parent "children" List.
+   */
   pruneCache(path: Immutable.List, node: Immutable.Map, i: number) {
     var children = node.get('children');
     path = this.cache[node.get('id')] = path.push('children', i);
@@ -145,7 +159,9 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Calculates a keyPath array for a specific node id
+   * Calculates a reference path for a specific node id.
+   *
+   * @param id - The node id.
    */
   find(id: number): Immutable.List {
     var path = this.keyPath(id, this.data);
@@ -153,14 +169,18 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Returns a keyPath array for a specific node id from cache whenever possible
+   * Returns a reference path for a specific node id, utilizing the reference cache whenever possible.
+   *
+   * @param id - The node id.
    */
   getPath(id: number): Immutable.List {
     return this.cache[id] || this.find(id);
   }
   
   /**
-   * Returns a node by id
+   * Returns a node by id.
+   *
+   * @param id - The node id.
    */
   get(id: number): ?Immutable.Map {
     var path = this.getPath(id);
@@ -168,7 +188,9 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Updates a node by id
+   * Updates a node by id.
+   *
+   * @param id - The node id.
    */
   set(id: number, node: Immutable.Map) {
     this.data = this.data.setIn(this.getPath(id), node);
@@ -176,7 +198,10 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Inserts a node into the children of a node with a given id
+   * Inserts a node into the children of a node with a given id.
+   *
+   * @param id - The id of a node into the children List of which to insert.
+   * @param node - The node to instert.
    */
   insert(id: number, node: Immutable.Map) {
     var destination = this.get(id), children;
@@ -188,7 +213,10 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Renames a node by id
+   * Renames a node by id.
+   *
+   * @param id - The node id.
+   * @param name - The new name.
    */
   rename(id: number, name: string) {
     var node = this.get(id);
@@ -196,14 +224,20 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Creates a new node
+   * Creates a new node.
+   *
+   * @param id - The id of a node into the children List of which to insert.
+   * @param name - The name of a new node.
+   * @param isDir - Creates a folder if isDir is true, a file otherwise.
    */
   create(id: number, name: string, isDir: boolean) {
     this.insert(id, Immutable.Map({id: Date.now(), name, isDir}));
   }
   
   /**
-   * Removes a node by id
+   * Removes a node by id.
+   *
+   * @param id - The node id.
    */
   remove(id: number) {
     var path = this.getPath(id), parent = this.data.getIn(path.splice(-2));
@@ -211,7 +245,10 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Moves a node to a new location in the tree
+   * Moves a node to a new location in the tree.
+   *
+   * @param sourceId - The node id.
+   * @param destinationId - The id of a node into the children List of which to insert.
    */
   move(sourceId: number, destinationId: number) {
     var source = this.get(sourceId);
@@ -222,7 +259,10 @@ Try dragging the tree items around (DnD might not work on IE <9).`}
   }
   
   /**
-   * Updates the text content of a node
+   * Updates the text content of a node.
+   *
+   * @param id - The node id.
+   * @param content - The content.
    */
   write(id: number, content: string) {
     var node = this.get(id);

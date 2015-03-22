@@ -1,23 +1,24 @@
 /* @flow */
 
 var React = require('react/lib/React'),
+  ReactElement = require('react/lib/ReactElement'),
   Modal = require('react-bootstrap/lib/Modal'),
   Button = require('react-bootstrap/lib/Button');
 
-/*public*/ class TreeConfirm extends React.Component {
+class TreeConfirm extends React.Component {
 
   /**
-   * Holds the component state
+   * Holds the component state.
    */
   state: Object;
 
   /**
-   * Defines the valid property types for this component
+   * Defines the valid property types for this component.
    */
   static propTypes: Object;
 
   /**
-   * Defines the default property values for this component
+   * Defines the default property values for this component.
    */
   static defaultProps: Object;
 
@@ -27,14 +28,14 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Closes the dialog
+   * Closes the dialog.
    */
   cancel() {
     this.setState({isModalOpen: false});
   }
   
   /**
-   * Confirms the action and closes the dialog
+   * Confirms the action and closes the dialog.
    */
   confirm() {
     this.props.onConfirm();
@@ -42,13 +43,13 @@ var React = require('react/lib/React'),
   }
   
   /**
-   * Makes the dialog visible on each render operation
+   * Makes the dialog visible on each render operation.
    */
   componentWillReceiveProps() {
     this.setState({isModalOpen: true});
   }
 
-  render(): any {
+  render(): ReactElement {
     return (
       this.state.isModalOpen ?
         <Modal title="Confirm" onRequestHide={this.cancel.bind(this)}>
