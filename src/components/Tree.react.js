@@ -126,13 +126,10 @@ Node.defaultProps = {selected: -1, target: -1};
   }
 
   render(): ReactElement {
+    var p = this.props;
     return (
-      <ul className={`al-tree ${this.props.className}`}>
-        {this.props.data.map((node) => {
-          return (
-            <Node key={node.get('id')} selected={this.props.selected} target={this.props.target} node={node} />
-          );
-        })}
+      <ul className={`al-tree ${p.className}`}>
+        {p.data.map(node => <Node key={node.get('id')} selected={p.selected} target={p.target} node={node} />)}
       </ul>
     );
   }
