@@ -7,7 +7,7 @@ User changes are persisted into localStorage.
 
 Written in React 0.13.1 + Flux 2.0.1 + Immutable 3.6.4
 
-Source code is statically analized by Flow 0.7.0, compiled from ES6 to ES5 with Babel 4.7.16 
+Source code is linted by ESLint 0.17.1, statically analized by Flow 0.7.0, compiled from ES6 to ES5 with Babel 4.7.16 
 and packaged with Webpack 1.7.3
 
 Styles are provided by Twitter Bootstrap 3.3.4 + React Bootstrap 0.17.0.

@@ -27,14 +27,14 @@ class TreePrompt extends React.Component {
     super(props);
     this.state = {isModalOpen: true, value: props.value};
   }
-  
+
   /**
    * Closes the dialog.
    */
   cancel() {
     this.setState({isModalOpen: false, value: ''});
   }
-  
+
   /**
    * Confirms the action and closes the dialog.
    */
@@ -44,21 +44,21 @@ class TreePrompt extends React.Component {
       this.cancel();
     }
   }
-  
+
   /**
    * Makes the dialog visible and pre-fills the text input on each render operation.
    */
   componentWillReceiveProps(props: Object) {
     this.setState({isModalOpen: true, value: props.value});
   }
-  
+
   /**
    * Checks the validity of a dialog.
    */
   isValid(): boolean {
     return !!this.state.value.length;
   }
-  
+
   /**
    * Stores the entered value.
    */

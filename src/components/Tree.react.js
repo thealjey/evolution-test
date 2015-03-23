@@ -29,7 +29,7 @@ var React = require('react/lib/React'),
     super(props);
     this.state = {expanded: false};
   }
-  
+
   /**
    * Performance hook.
    */
@@ -44,7 +44,7 @@ var React = require('react/lib/React'),
   toggle() {
     this.setState({expanded: !this.state.expanded});
   }
-  
+
   /**
    * Selects a node.
    *
@@ -52,9 +52,11 @@ var React = require('react/lib/React'),
    */
   select(e: SyntheticMouseEvent) {
     e.stopPropagation();
-    if (!/^glyphicon/.test(e.target.className)) TreeActions.select(this.props.node.get('id'));
+    if (!/^glyphicon/.test(e.target.className)) {
+      TreeActions.select(this.props.node.get('id'));
+    }
   }
-  
+
   /**
    * Sets a drop target.
    *
@@ -65,7 +67,7 @@ var React = require('react/lib/React'),
     var id = this.props.node.get('id');
     TreeActions.target(TreeStore.isAllowedDrop(id) ? id : -1);
   }
-  
+
   /**
    * Resets a drop target and moves a node to a new position in the tree if needed.
    *
@@ -73,7 +75,9 @@ var React = require('react/lib/React'),
    */
   onDragEnd(e: SyntheticDragEvent) {
     e.stopPropagation();
-    if (TreeStore.isAllowedDrop(this.props.target)) TreeActions.move();
+    if (TreeStore.isAllowedDrop(this.props.target)) {
+      TreeActions.move();
+    }
     TreeActions.target(-1);
   }
 
@@ -116,7 +120,7 @@ Node.defaultProps = {selected: -1, target: -1};
    * Defines the default property values for this component.
    */
   static defaultProps: Object;
-  
+
   /**
    * Performance hook.
    */

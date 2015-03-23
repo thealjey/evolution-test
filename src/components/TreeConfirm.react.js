@@ -26,14 +26,14 @@ class TreeConfirm extends React.Component {
     super(props);
     this.state = {isModalOpen: true};
   }
-  
+
   /**
    * Closes the dialog.
    */
   cancel() {
     this.setState({isModalOpen: false});
   }
-  
+
   /**
    * Confirms the action and closes the dialog.
    */
@@ -41,7 +41,7 @@ class TreeConfirm extends React.Component {
     this.props.onConfirm();
     this.cancel();
   }
-  
+
   /**
    * Makes the dialog visible on each render operation.
    */

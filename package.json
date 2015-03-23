@@ -3,11 +3,13 @@
     "autoprefixer": "*",
     "babel": "*",
     "babel-core": "*",
+    "babel-eslint": "*",
     "babel-jest": "*",
     "babel-loader": "*",
     "babel-runtime": "*",
     "bootstrap-sass": "*",
     "es5-shim": "*",
+    "eslint": "*",
     "express": "*",
     "flux": "*",
     "immutable": "*",
@@ -34,7 +36,7 @@
     ]
   },
   "scripts": {
-    "build-js": "if flow ; then ( if jest ; then webpack --progress --colors -d ; fi ) ; fi",
+    "build-js": "if eslint src ; then ( if flow ; then ( if jest ; then webpack --progress --colors -d ; fi ) ; fi ) ; fi",
     "build-sass": "sass --precision 8 ./scss/app.scss ./out/app.css ; autoprefixer ./out/app.css"
   }
 }

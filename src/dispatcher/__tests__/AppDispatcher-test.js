@@ -1,5 +1,3 @@
-"use strict";
-
 jest.autoMockOff();
 
 describe('AppDispatcher', function() {
@@ -20,9 +18,9 @@ describe('AppDispatcher', function() {
   });
 
   it('waits with chained dependencies properly', function() {
-    var payload = {};
+    var payload = {}, index1, index2, index3, index4, listener1Done, listener2Done, listener3Done, listener4Done;
 
-    var listener1Done = false;
+    listener1Done = false;
     var listener1 = function(pl) {
       AppDispatcher.waitFor([index2, index4]);
       // Second, third, and fourth listeners should have now been called
@@ -31,29 +29,29 @@ describe('AppDispatcher', function() {
       expect(listener4Done).toBe(true);
       listener1Done = true;
     };
-    var index1 = AppDispatcher.register(listener1);
+    index1 = AppDispatcher.register(listener1);
 
-    var listener2Done = false;
+    listener2Done = false;
     var listener2 = function(pl) {
       AppDispatcher.waitFor([index3]);
       expect(listener3Done).toBe(true);
       listener2Done = true;
     };
-    var index2 = AppDispatcher.register(listener2);
+    index2 = AppDispatcher.register(listener2);
 
-    var listener3Done = false;
+    listener3Done = false;
     var listener3 = function(pl) {
       listener3Done = true;
     };
-    var index3 = AppDispatcher.register(listener3);
+    index3 = AppDispatcher.register(listener3);
 
-    var listener4Done = false;
+    listener4Done = false;
     var listener4 = function(pl) {
       AppDispatcher.waitFor([index3]);
       expect(listener3Done).toBe(true);
       listener4Done = true;
     };
-    var index4 = AppDispatcher.register(listener4);
+    index4 = AppDispatcher.register(listener4);
 
     runs(function() {
       AppDispatcher.dispatch(payload);
@@ -61,7 +59,7 @@ describe('AppDispatcher', function() {
 
     waitsFor(function() {
       return listener1Done;
-    }, "Not all subscribers were properly called", 500);
+    }, 'Not all subscribers were properly called', 500);
 
     runs(function() {
       expect(listener1Done).toBe(true);

@@ -33,11 +33,11 @@ class TreeApp extends React.Component {
   constructor(props: Object) {
     super(props);
     this.state = TreeStore.getAll();
-    this._onChange = () => {
+    this.onChange = () => {
       this.setState(TreeStore.getAll());
     };
   }
-  
+
   /**
    * Performance hook.
    */
@@ -45,7 +45,7 @@ class TreeApp extends React.Component {
     return state.data !== this.state.data || state.selected !== this.state.selected ||
       state.target !== this.state.target;
   }
-  
+
   /**
    * Creates placeholders for the dialogs and registers an event listener in the store.
    */
@@ -56,7 +56,7 @@ class TreeApp extends React.Component {
     this.confirmEl.id = 'treeconfirm';
     document.body.appendChild(this.promptEl);
     document.body.appendChild(this.confirmEl);
-    TreeStore.addChangeListener(this._onChange);
+    TreeStore.addChangeListener(this.onChange);
   }
 
   /**
@@ -65,35 +65,35 @@ class TreeApp extends React.Component {
   componentWillUnmount() {
     document.body.removeChild(this.promptEl);
     document.body.removeChild(this.confirmEl);
-    TreeStore.removeChangeListener(this._onChange);
+    TreeStore.removeChangeListener(this.onChange);
   }
-  
+
   /**
    * Creates a tree node.
    *
    * @param isDir - Creates a folder if isDir is true, a file otherwise.
    * @param name - The name of a new node.
    */
-  _doCreate(isDir: boolean, name: string) {
+  doCreate(isDir: boolean, name: string) {
     TreeActions.create(name, isDir);
   }
-  
+
   /**
    * Renames a tree node.
    *
    * @param name - The new name.
    */
-  _doRename(name: string) {
+  doRename(name: string) {
     TreeActions.rename(name);
   }
-  
+
   /**
    * Removes a tree node.
    */
-  _doRemove() {
+  doRemove() {
     TreeActions.remove();
   }
-  
+
   /**
    * Prompts for a name of a tree node to create.
    *
@@ -103,12 +103,12 @@ class TreeApp extends React.Component {
   create(type: string, isDir: boolean) {
     if (TreeStore.isAllowedCreate()) {
       React.render(
-        <TreePrompt header={`Enter a new ${type} name`} onConfirm={this._doCreate.bind(this, isDir)} />,
+        <TreePrompt header={`Enter a new ${type} name`} onConfirm={this.doCreate.bind(this, isDir)} />,
         this.promptEl
       );
     }
   }
-  
+
   /**
    * Prompts for a new name for a tree node.
    */
@@ -116,24 +116,24 @@ class TreeApp extends React.Component {
     if (TreeStore.isAllowedEdit()) {
       React.render(
         <TreePrompt header="Enter a new name" value={TreeStore.getSelectedName()}
-          onConfirm={this._doRename.bind(this)} />,
+          onConfirm={this.doRename.bind(this)} />,
         this.promptEl
       );
     }
   }
-  
+
   /**
    * Asks confirmation before removing a tree node.
    */
   remove() {
     if (TreeStore.isAllowedEdit()) {
       React.render(
-        <TreeConfirm onConfirm={this._doRemove.bind(this)} />,
+        <TreeConfirm onConfirm={this.doRemove.bind(this)} />,
         this.confirmEl
       );
     }
   }
-  
+
   /**
    * Writes into the selected file.
    */

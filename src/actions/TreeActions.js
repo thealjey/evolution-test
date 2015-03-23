@@ -2,9 +2,9 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher'),
   TreeConstants = require('../constants/TreeConstants');
-  
+
 module.exports = {
-  
+
   /**
    * Selects a tree node by id.
    *
@@ -13,7 +13,7 @@ module.exports = {
   select(id: number) {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_SELECT, id});
   },
-  
+
   /**
    * Creates a directory or a file with a particular name.
    *
@@ -23,7 +23,7 @@ module.exports = {
   create(name: string, isDir: boolean) {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_CREATE, name, isDir});
   },
-  
+
   /**
    * Renames a tree node.
    *
@@ -32,14 +32,14 @@ module.exports = {
   rename(name: string) {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_RENAME, name});
   },
-  
+
   /**
    * Removes a tree node.
    */
   remove() {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_REMOVE});
   },
-  
+
   /**
    * Marks a node with a given id as a drop target.
    *
@@ -48,19 +48,19 @@ module.exports = {
   target(id: number) {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_TARGET, id});
   },
-  
+
   /**
    * Moves the selected node into the drop target.
    */
   move() {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_MOVE});
   },
-  
+
   /**
    * Writes a text content into the selected file.
    */
   write(content: string) {
     AppDispatcher.dispatch({actionType: TreeConstants.TREE_WRITE, content});
   }
-  
+
 };
